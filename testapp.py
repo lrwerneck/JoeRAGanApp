@@ -7,27 +7,72 @@ from langchain.callbacks import StreamlitCallbackHandler
 from langchain.callbacks import FinalStreamingStdOutCallbackHandler
 from langchain.callbacks import get_openai_callback
 import openai
+import base64
 
 st.set_page_config(page_title= "The Joe RAGan Experience", page_icon="🤣")
+#ADD Width and Theme to config
 
-# def get_img_as_base64(file):
-#    with open(file,'rb') as f:
-#     data = f.read()return
 
-page_bg_img = """
-<style>
-[data-test-id="stAppViewContainer"] {
-background image: url(bricks.webp)
-background_size: cover;
-}
-</style>
-"""
-# st.video('NeonSign.mp4')
-st.image("small.gif")
+st.markdown('##')
+st.markdown('##')
+st.markdown('##')
+st.markdown('##')
+st.markdown('##')
+st.markdown('##')
+st.markdown('##')
 
 
 
-# st.session_state.user = st.sidebar.text_input("Enter your name")
+# def sidebar_bg(side_bg):
+
+#    side_bg_ext = 'png'
+
+#    st.markdown(
+#       f"""
+#       <style>
+#       [data-testid="stSidebar"] > div:first-child {{
+#           background: url(data:image/{side_bg_ext};base64,{base64.b64encode(side_bg).decode()});
+#           background-size: cover;
+#       }}
+#       </style>
+#       """,
+#       unsafe_allow_html=True,
+#       )
+
+# # side_bg = 'bricks.jpg'
+# with open('chalk.png', 'rb') as file:
+#    data = file.read()
+#    sidebar_bg(data)
+
+
+def set_bg_hack(main_bg):
+    '''
+    A function to unpack an image from root folder and set as bg.
+ 
+    Returns
+    -------
+    The background.
+    '''
+    # set bg name
+    main_bg_ext = "gif"
+        
+    st.markdown(
+         f"""
+         <style>
+         .stApp {{
+             background: url(data:image/{main_bg_ext};base64,{base64.b64encode(main_bg).decode()});
+             background-repeat: no-repeat;
+             background-size: cover;
+             background-position: center;
+         }}
+         </style>
+         """,
+         unsafe_allow_html=True
+     )
+
+with open('Final_Background.gif', 'rb') as pic_file:
+   background = pic_file.read()
+   set_bg_hack(background)
 
 # Lets implement the enter api key function
 openai_api_key = st.sidebar.text_input("OpenAI API Key", type="password")
@@ -35,6 +80,67 @@ openai.api_key = openai_api_key
 if not openai_api_key:
     st.info("Please add your OpenAI API key to continue.")
     st.stop()
+
+### ADDING THE SIDE BAR INFO
+st.markdown("""
+<style>
+    .stChatFloatingInputContainer {
+        padding-bottom: 30px !important;
+        padding-top: 0rem;
+        background-color: transparent;
+    }
+</style>
+""", unsafe_allow_html=True)
+
+with st.sidebar:
+    st.title("🔎  Query the Joe Rogan Experience")
+
+    st.markdown('''
+    ## Imporve RAG applications via intelligent chunking and information enrichment 🚀
+    
+    This app enables exploration into the episodes of the Joe Rogan Experience, allowing you to ask specific questions regarding the content of certain epsiodes. (ALL EPSIODES WILL BE ADDED AT A LATER DATE)
+    
+    This app is powered by Streamlit, OpenAI, Langchain and Weaviate.'''
+    )
+    
+    with st.expander("✨ ABOUT", False):
+       st.markdown("""
+        Welcome to The Joe RAG-an Experience! This chatbot has access to a few episode transcripts of the Joe Rogan podcast and can answer questions about the discussions that occurred within those episodes. This project attempts to improve upon the traditional RAG (Retrieval Augmented Generation) implementation by chunking the episode transcripts dynamically based on semantic context, as well as enriching these chunks with tags describing the topics discussed within the chunk. 
+        """
+       )
+
+    with st.expander("📝 AVAILABLE EPISODES", False):
+       st.markdown("""
+        - The Joe Rogan Experience #1470 - Elon Musk
+        - The Joe Rogan Experience #1368 - Edward Snowden
+        - The Joe Rogan Experience Other
+        """
+       )
+    with st.expander("🧠 SMART CHUNKING", False):
+       st.markdown("""
+        One issue we have noticed with traditional chunking methods is that they can often cut off relevant context as they denote chunk boundaries with arbitrary word or token counts. Although this is partially solved by adding overlap between chunks, we thought that perhaps this could be made even better by having a LLM determine where the chunk boundaries should be placed. To do this we first use a standard text splitter to create “default” chunks, then prompt a LLM to adjust these chunks in order to retain semantic context and avoid cutting off a chunk in the middle of a thought or sentence. This way, our chunks are “intelligently” selected in order to optimally retain context. 
+        """
+       )
+    with st.expander("🔮 INFORMATION ENRICHMENT", False):
+       st.markdown("""
+        Another improvement we wanted to try on the traditional RAG implementation was information enrichment. The idea is to add another form of metric to retrieve context based on, rather than relying purely on a vector similarity search based on the user query. When performing the chunking process, we additionally have a LLM assign topic descriptions to each chunk. This comes in the form of a couple ~sentence long tags describing what is discussed within the chunk. When we are attempting to retrieve context to help answer a user query, we first search through the topic descriptions to grab relevant topics, then use those topics to help us narrow down the similarity search for the embedded chunks. The goal behind this technique was to improve retrieval of relevant context and limit retrieval of irrelevant context. 
+        """
+       )
+
+
+    st.markdown(""" Produced by @ """)
+
+
+st.markdown("""
+<style>
+    [data-testid=stChatFloatingInputContainer css-1v6qhwz e1d2x3se2] {
+        background-color: #FF8080;
+        padding-bottom: 15px;
+    }
+</style>
+""", unsafe_allow_html=True)
+
+
 
 from langchain.callbacks.base import BaseCallbackHandler
 class StreamHandler(BaseCallbackHandler):
@@ -124,8 +230,12 @@ if st.sidebar.button("Clear message history"):
     llm = ChatOpenAI(temperature=0,openai_api_key=openai_api_key, model="gpt-3.5-turbo-16k", streaming=True)
     st.session_state.joe_rogan_agent = create_conversational_retrieval_agent(llm, st.session_state.tools, verbose = True, system_message=sys_mes_joe)
 
-for n,msg in enumerate(st.session_state.messages):
-   st.chat_message(msg["role"],avatar=avatars[msg["role"]]).write(msg["content"])
+#Not sure if this is needed
+with st.container():
+   for n, msg in enumerate(st.session_state.messages):
+      st.chat_message(msg["role"], avatar=avatars[msg["role"]]).write(msg["content"])
+# for n,msg in enumerate(st.session_state.messages):
+#    st.chat_message(msg["role"],avatar=avatars[msg["role"]]).write(msg["content"])
 
 user_query = st.chat_input(placeholder="Enter Question")
 

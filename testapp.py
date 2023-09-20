@@ -88,8 +88,16 @@ with st.sidebar:
     with st.expander("📝 AVAILABLE EPISODES", False):
        st.markdown("""
         - The Joe Rogan Experience #1470 - Elon Musk
-        - The Joe Rogan Experience #1368 - Edward Snowden
-        - The Joe Rogan Experience Other
+        - The Joe Rogan Experience #1863 - Mark Zuckerberg
+        - The Joe Rogan Experience #1904 - Neil deGrasse Tyson
+        """
+       )
+    with st.expander("⁉️ SAMPLE QUESTIONS", False):
+       st.markdown("""
+        - What did Elon say about the neuralink's potential health hazards?
+        - What did Zuckerberg say about Spotify's recommendation algorithm?
+        - What are Zuckerberg's' thoughts on the future of VR?
+        - According to Neil deGrasse Tyson how do people misunderstand statistics?
         """
        )
     with st.expander("🧠 SMART CHUNKING", False):
@@ -102,6 +110,7 @@ with st.sidebar:
         Another improvement we wanted to try on the traditional RAG implementation was information enrichment. The idea is to add another form of metric to retrieve context based on, rather than relying purely on a vector similarity search based on the user query. When performing the chunking process, we additionally have a LLM assign topic descriptions to each chunk. This comes in the form of a couple ~sentence long tags describing what is discussed within the chunk. When we are attempting to retrieve context to help answer a user query, we first search through the topic descriptions to grab relevant topics, then use those topics to help us narrow down the similarity search for the embedded chunks. The goal behind this technique was to improve retrieval of relevant context and limit retrieval of irrelevant context. 
         """
        )
+
 
 
     st.markdown(""" Created by Lucas Werneck & Preston Goren """)

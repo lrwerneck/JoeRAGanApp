@@ -53,9 +53,7 @@ with open('Final_Background.gif', 'rb') as pic_file:
 # Lets implement the enter api key function
 openai_api_key = st.sidebar.text_input("OpenAI API Key", type="password")
 openai.api_key = openai_api_key
-if not openai_api_key:
-    st.info("Please add your OpenAI API key to continue.")
-    st.stop()
+
 
 ### ADDING THE SIDE BAR INFO
 st.markdown("""
@@ -112,7 +110,6 @@ with st.sidebar:
        )
 
 
-
     st.markdown(""" 
                 Created by Lucas Werneck & Preston Goren
                 
@@ -122,7 +119,9 @@ with st.sidebar:
                 
                 """)
 
-
+if not openai_api_key:
+    st.info("Please add your OpenAI API key to continue.")
+    st.stop()
 
 st.markdown("""
 <style>

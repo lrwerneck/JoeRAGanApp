@@ -1,6 +1,9 @@
 # JoeRAGanApp
 Created By: [Preston Goren](https://www.linkedin.com/in/prestongoren/) and [Lucas Werneck](https://www.linkedin.com/in/lucas-werneck/)
 
+![image](https://github.com/lrwerneck/JoeRAGanApp/assets/80135054/f6690213-7b69-425b-947e-8828d178f8c3)
+
+
 ## About
 Welcome to The Joe RAG-an Experience! This chatbot has access to a few episode transcripts of the Joe Rogan podcast and can answer questions about the discussions that occurred within those episodes. This project attempts to improve upon the traditional RAG (Retrieval Augmented Generation) implementation by chunking the episode transcripts dynamically based on semantic context, as well as enriching these chunks with tags describing the topics discussed within the chunk.
 

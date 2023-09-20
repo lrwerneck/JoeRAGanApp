@@ -155,10 +155,10 @@ class StreamHandler(BaseCallbackHandler):
 
 # Connect to and create weaviate vectorstores:
 import weaviate
-auth_config = weaviate.AuthApiKey(api_key="J12sontXiJhQuABUlZoXL4lgTDmhjsF4dO05")
+auth_config = weaviate.AuthApiKey(api_key="bDEc18zYMDlEvHsezMBGYVgt74sLuHiFDA3x")
 
 client = weaviate.Client(
-    url="https://streamlit-llm-hackathon-vb29y6cc.weaviate.network",
+    url="https://streamlit-hackathon-9jz5tvif.weaviate.network",
     auth_client_secret=auth_config,
     additional_headers={
         "X-OpenAI-Api-Key": openai_api_key

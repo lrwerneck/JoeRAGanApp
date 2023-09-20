@@ -9,7 +9,7 @@ from langchain.callbacks import get_openai_callback
 import openai
 import base64
 
-st.set_page_config(page_title= "The Joe RAGan Experience", page_icon="🤣")
+st.set_page_config(page_title= "The Joe RAGan Experience", page_icon="🤣", layout="wide")
 #ADD Width and Theme to config
 
 
@@ -20,30 +20,6 @@ st.markdown('##')
 st.markdown('##')
 st.markdown('##')
 st.markdown('##')
-
-
-
-# def sidebar_bg(side_bg):
-
-#    side_bg_ext = 'png'
-
-#    st.markdown(
-#       f"""
-#       <style>
-#       [data-testid="stSidebar"] > div:first-child {{
-#           background: url(data:image/{side_bg_ext};base64,{base64.b64encode(side_bg).decode()});
-#           background-size: cover;
-#       }}
-#       </style>
-#       """,
-#       unsafe_allow_html=True,
-#       )
-
-# # side_bg = 'bricks.jpg'
-# with open('chalk.png', 'rb') as file:
-#    data = file.read()
-#    sidebar_bg(data)
-
 
 def set_bg_hack(main_bg):
     '''
@@ -128,7 +104,7 @@ with st.sidebar:
        )
 
 
-    st.markdown(""" Produced by @ """)
+    st.markdown(""" Created by Lucas Werneck & Preston Goren """)
 
 
 st.markdown("""
@@ -155,7 +131,7 @@ class StreamHandler(BaseCallbackHandler):
 
 # Connect to and create weaviate vectorstores:
 import weaviate
-auth_config = weaviate.AuthApiKey(api_key="bDEc18zYMDlEvHsezMBGYVgt74sLuHiFDA3x")
+auth_config = weaviate.AuthApiKey(api_key=st.secrets.WEAVIATE_API_KEY)
 
 client = weaviate.Client(
     url="https://streamlit-hackathon-9jz5tvif.weaviate.network",
@@ -215,9 +191,8 @@ if 'joe_rogan_agent' not in st.session_state:
    
 
 
-# Set up the streamlit interface (rough draft):
-
-avatars = {"user": '🧠', "assistant": '🤖'}
+# Set up the streamlit chat interface
+avatars = {"user": '👨🏽‍💻', "assistant": 'jrelogo.webp'}
 
 if "messages" not in st.session_state:
    st.session_state["messages"] = [{"role":"assistant", "content": "What would you like to know?"}]
@@ -230,12 +205,9 @@ if st.sidebar.button("Clear message history"):
     llm = ChatOpenAI(temperature=0,openai_api_key=openai_api_key, model="gpt-3.5-turbo-16k", streaming=True)
     st.session_state.joe_rogan_agent = create_conversational_retrieval_agent(llm, st.session_state.tools, verbose = True, system_message=sys_mes_joe)
 
-#Not sure if this is needed
 with st.container():
    for n, msg in enumerate(st.session_state.messages):
       st.chat_message(msg["role"], avatar=avatars[msg["role"]]).write(msg["content"])
-# for n,msg in enumerate(st.session_state.messages):
-#    st.chat_message(msg["role"],avatar=avatars[msg["role"]]).write(msg["content"])
 
 user_query = st.chat_input(placeholder="Enter Question")
 
@@ -244,8 +216,7 @@ if user_query:
    st.chat_message("user", avatar=avatars["user"]).write(user_query)
 
    with st.chat_message("assistant", avatar=avatars["assistant"]):
-    #We can use the streamlit call back handler to stream responses but it is mad tricky. Would be nice to find a cleaner solution or implementation
     stream_handler = StreamHandler(st.empty())
     response = st.session_state.joe_rogan_agent({"input": user_query},callbacks=[stream_handler])
     st.session_state.messages.append({"role": "assistant", "content": response["output"]})
-    # st.write(response["output"])
+   

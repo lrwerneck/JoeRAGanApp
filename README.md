@@ -1,5 +1,6 @@
 # JoeRAGanApp
 Created By: [Preston Goren](https://www.linkedin.com/in/prestongoren/) and [Lucas Werneck](https://www.linkedin.com/in/lucas-werneck/)
+Presentation: [Video](https://www.youtube.com/watch?v=HGB_zUmIFlM) | [Slides](https://docs.google.com/presentation/d/1lrcUbo9y4kGLIPtPKfgBCw9OE0HE4IV2PiEuraO3OUQ/edit?usp=sharing)
 
 ![image](https://github.com/lrwerneck/JoeRAGanApp/assets/80135054/f6690213-7b69-425b-947e-8828d178f8c3)
 

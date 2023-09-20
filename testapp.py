@@ -74,9 +74,9 @@ with st.sidebar:
     st.markdown('''
     ## Improve RAG applications via intelligent chunking and information enrichment 🚀
     
-    This app enables exploration into the episodes of the Joe Rogan Experience, allowing you to ask specific questions regarding the content of certain epsiodes. (ALL EPSIODES WILL BE ADDED AT A LATER DATE)
+    This app enables exploration into the episodes of the Joe Rogan Experience, allowing you to ask specific questions regarding the content of certain epsiodes. 
     
-    This app is powered by Streamlit, OpenAI, Langchain and Weaviate.'''
+    This app is powered by Streamlit, OpenAI, LangChain and Weaviate.'''
     )
     
     with st.expander("✨ ABOUT", False):
@@ -113,7 +113,15 @@ with st.sidebar:
 
 
 
-    st.markdown(""" Created by Lucas Werneck & Preston Goren """)
+    st.markdown(""" 
+                Created by Lucas Werneck & Preston Goren
+                
+
+
+                ** ALL EPSIODES WILL BE ADDED AT A LATER DATE **
+                
+                """)
+
 
 
 st.markdown("""

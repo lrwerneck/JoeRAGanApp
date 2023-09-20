@@ -72,7 +72,7 @@ with st.sidebar:
     st.title("🔎  Query the Joe Rogan Experience")
 
     st.markdown('''
-    ## Imporve RAG applications via intelligent chunking and information enrichment 🚀
+    ## Improve RAG applications via intelligent chunking and information enrichment 🚀
     
     This app enables exploration into the episodes of the Joe Rogan Experience, allowing you to ask specific questions regarding the content of certain epsiodes. (ALL EPSIODES WILL BE ADDED AT A LATER DATE)
     
@@ -85,17 +85,17 @@ with st.sidebar:
         """
        )
 
-    with st.expander("📝 AVAILABLE EPISODES", False):
+    with st.expander("📚 AVAILABLE EPISODES", False):
        st.markdown("""
         - The Joe Rogan Experience #1470 - Elon Musk
         - The Joe Rogan Experience #1863 - Mark Zuckerberg
         - The Joe Rogan Experience #1904 - Neil deGrasse Tyson
         """
        )
-    with st.expander("⁉️ SAMPLE QUESTIONS", False):
+    with st.expander("📝 SAMPLE QUESTIONS", False):
        st.markdown("""
         - What did Elon say about the neuralink's potential health hazards?
-        - What did Zuckerberg say about Spotify's recommendation algorithm?
+        - What did Zuckerberg say about Spotify's recommendation algorithm?s
         - What are Zuckerberg's' thoughts on the future of VR?
         - According to Neil deGrasse Tyson how do people misunderstand statistics?
         """

@@ -150,7 +150,7 @@ import weaviate
 auth_config = weaviate.AuthApiKey(api_key=st.secrets.WEAVIATE_API_KEY)
 
 client = weaviate.Client(
-    url="https://streamlit-hackathon-9jz5tvif.weaviate.network",
+    url="https://streamlit-hackathon-llm-2zcna00b.weaviate.network",
     auth_client_secret=auth_config,
     additional_headers={
         "X-OpenAI-Api-Key": openai_api_key
